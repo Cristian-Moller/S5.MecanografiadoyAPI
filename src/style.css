@@ -1,0 +1,30 @@
+
+.first-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.first-row p{
+  font-size: 1.3rem;
+}
+button{
+  width: 15%;
+  height: 2.3rem;
+  background-color: aquamarine ;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border: none;
+  border-radius: 0.7rem;
+}
+button:hover{
+  background-color: rgb(79, 227, 178);
+}
+
+img{
+  max-width: 3rem;
+  height: auto;
+}
+
