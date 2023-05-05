@@ -1,5 +1,5 @@
 function apiJoke() {
-    const urlJoke = "https://icanhazdadjoke.com";
+    const urlJoke = "https://icanhazdadjoke.com", $jokeBox = document.getElementById("joke-box"), fragment = document.createDocumentFragment();
     fetch(urlJoke, {
         method: "GET",
         headers: {
@@ -10,6 +10,13 @@ function apiJoke() {
         return res.json();
     })
         .then((res) => {
+        var _a;
+        const $p = document.createElement("p");
+        (_a = document.getElementById('fun')) === null || _a === void 0 ? void 0 : _a.remove();
+        $p.setAttribute('id', 'fun');
+        $p.innerHTML = res.joke;
+        fragment.appendChild($p);
+        $jokeBox.appendChild(fragment);
         console.log(res);
     });
 }
