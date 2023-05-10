@@ -38,26 +38,23 @@ function apiJoke() {
         $jokeBox.appendChild(fragment);
         $buttonsBox.appendChild(fragmentOne);
         function buttonEvent(event) {
-            let day = date();
             if (reportAcudits.find(elem => elem.broma == res.joke) == null) {
                 reportAcudits.push({
                     broma: res.joke,
                     puntuacion: Number(event.target.value),
-                    fecha: day
+                    fecha: date()
                 });
             }
             let index = reportAcudits.findIndex(elem => ((elem.broma == res.joke) && (elem.puntuacion != Number(event.target.value))));
             if (index != -1) {
-                reportAcudits.splice(index, 1, { broma: res.joke, puntuacion: Number(event.target.value), fecha: day });
+                reportAcudits.splice(index, 1, { broma: res.joke, puntuacion: Number(event.target.value), fecha: date() });
             }
         }
         function buttonEventSee(event) {
-            let day = date();
             if (event.currentTarget.id == 'newJoke') {
                 let index = reportAcudits.findIndex(elem => (elem.broma == res.joke));
                 if (index === -1) {
-                    reportAcudits.push({ broma: res.joke, puntuacion: 0, fecha: day });
-                    console.log('pasar', reportAcudits);
+                    reportAcudits.push({ broma: res.joke, puntuacion: 0, fecha: date() });
                 }
             }
         }
@@ -77,4 +74,24 @@ function date() {
     let day = d.toISOString();
     return day;
 }
+function weatherApi() {
+    const params = new URLSearchParams({
+        "access_key": 'cb7ce89cfb64f769c534da7bda63141c',
+        "query": 'Barcelona'
+    }), $tempBox = document.getElementById("temp-box"), fragmentTemp = document.createDocumentFragment();
+    fetch(`http://api.weatherstack.com/current?${params}`)
+        .then(res => res.json())
+        .then(data => {
+        const $div = document.createElement("div");
+        $div.setAttribute('id', 'temp');
+        $div.innerHTML = 'Temperature: ' + data.current.temperature + 'ºC';
+        fragmentTemp.appendChild($div);
+        $tempBox.appendChild(fragmentTemp);
+    });
+}
+weatherApi();
 export {};
+/* setInterval(() =>{
+  document.getElementById('temp')?.remove()
+  weatherApi()
+  }, 5000) */ 

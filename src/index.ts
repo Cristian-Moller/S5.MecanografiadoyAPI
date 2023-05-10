@@ -91,9 +91,35 @@ function apiJoke(): void {
 const button = document.getElementById("newJoke");
 button?.addEventListener("click", apiJoke);
 
-
 function date(): string {
   const d: Date = new Date();
   let day: string = d.toISOString();
   return day
 }
+
+
+function weatherApi(): void {
+  const params = new URLSearchParams({
+    "access_key": 'cb7ce89cfb64f769c534da7bda63141c',
+    "query": 'Barcelona'
+  }),
+  $tempBox: HTMLElement = <HTMLElement> document.getElementById("temp-box"),
+  fragmentTemp: Node = document.createDocumentFragment()
+
+
+  fetch(`http://api.weatherstack.com/current?${params}`)
+    .then(res => res.json())
+    .then(data => {
+      const $div: HTMLElement = document.createElement("div")
+
+      $div.setAttribute('id', 'temp')
+      $div.innerHTML = 'Temperature: ' + data.current.temperature + 'ºC'
+      fragmentTemp.appendChild($div)
+      $tempBox.appendChild(fragmentTemp)
+    })
+}
+weatherApi()
+/* setInterval(() =>{
+  document.getElementById('temp')?.remove()
+  weatherApi()
+  }, 3000) */
