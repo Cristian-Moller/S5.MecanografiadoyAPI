@@ -1,7 +1,9 @@
 export interface listJoke {
   id: string,
   joke: string,
-  status: number
+  status: number,
+  url: string,
+  value: string
 }
 
 export interface listScore {
