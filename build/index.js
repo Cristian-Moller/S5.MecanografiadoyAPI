@@ -27,13 +27,10 @@ function apiJoke() {
         $p.innerHTML = (res.joke) || (res.value);
         $buttonOne.setAttribute('id', 'buttonOne');
         $buttonOne.setAttribute('value', '1');
-        $buttonOne.innerHTML = '1';
         $buttonTwo.setAttribute('id', 'buttonTwo');
         $buttonTwo.setAttribute('value', '2');
-        $buttonTwo.innerHTML = '2';
         $buttonThree.setAttribute('id', 'buttonThree');
         $buttonThree.setAttribute('value', '3');
-        $buttonThree.innerHTML = '3';
         fragment.appendChild($p);
         fragmentOne.appendChild($buttonOne);
         fragmentOne.appendChild($buttonTwo);
@@ -68,7 +65,7 @@ function apiJoke() {
         const buttonThree = document.getElementById("buttonThree");
         buttonThree === null || buttonThree === void 0 ? void 0 : buttonThree.addEventListener("click", buttonEvent);
         button === null || button === void 0 ? void 0 : button.addEventListener("click", buttonEventSee);
-        console.log(reportAcudits);
+        //console.log(reportAcudits)
     });
 }
 const button = document.getElementById("newJoke");
@@ -86,20 +83,21 @@ function weatherApi() {
     fetch(`http://api.weatherstack.com/current?${params}`)
         .then(res => res.json())
         .then(data => {
-        console.log('temp', data);
+        var _a;
+        (data.success != false) ? ((_a = document.getElementById('temp')) === null || _a === void 0 ? void 0 : _a.remove()) : console.log(data);
         const $div = document.createElement("div");
         $div.setAttribute('id', 'temp');
-        $div.innerHTML = 'Temperature: ' + data.current.temperature + 'ºC';
+        $div.innerHTML = '<img src="' + data.current.weather_icons + '" alt="" srcset="">' +
+            '<span> | </span>' + data.current.temperature + 'ºC';
         fragmentTemp.appendChild($div);
         $tempBox.appendChild(fragmentTemp);
     });
 }
-//weatherApi()
+weatherApi();
 function urlRandom() {
     var urls = new Array("https://icanhazdadjoke.com", "https://api.chucknorris.io/jokes/random");
     var aleatory = Math.random() * urls.length;
     aleatory = Math.floor(aleatory);
-    //console.log('aleatorio',urls[aleatory])
     return urls[aleatory];
 }
 export {};
